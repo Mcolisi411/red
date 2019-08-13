@@ -1,0 +1,51 @@
+
+package javaapplication12;
+import java.util.*;
+
+public class JavaApplication12 
+{
+
+    static Scanner x = new Scanner(System.in);
+    
+    public static void main(String[] args) 
+    {
+       
+        double hoursWorked;
+        double weeklyWage;
+        int normalRate;
+        int overRate;
+        
+        normalRate = 100;
+        overRate = 150;
+        
+        System.out.println("Enter hours worked per week");
+        
+        hoursWorked = x.nextDouble();
+        
+        System.out.println();
+        
+        if(hoursWorked < 40)
+        {
+            
+            weeklyWage = hoursWorked * normalRate;
+                
+        System.out.println("Your weekly salary is "+weeklyWage);
+        
+        }
+        
+        else if(hoursWorked > 40)
+        {
+            weeklyWage = (hoursWorked - 40) * overRate + 40 * normalRate;
+            
+            System.out.println("Your weekly salary is "+weeklyWage);
+            
+        } 
+        
+        else if(hoursWorked == 40)
+        {
+           weeklyWage = hoursWorked * normalRate;
+                
+        System.out.println("Your weekly salary is "+weeklyWage);  
+        }
+    }
+}

@@ -1,0 +1,104 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package schemin;
+import java.util.*;
+/**
+ *
+ * @author Viny
+ */
+public class Schemin {
+
+    /**
+     * @param args the command line arguments
+     */
+    static Scanner console= new Scanner (System.in);
+    public static void main(String[] args) {
+        // TODO code application logic here
+
+        int firstNum, secondNum, num1, num2, num3, num4;
+        System.out.println("Enter 2 integers");
+        firstNum=console.nextInt();
+        secondNum=console.nextInt();
+        
+        int firstNum1, secondNum1;
+        firstNum1=firstNum;
+        secondNum1=secondNum;
+        
+        int firstNum2, secondNum2;
+        firstNum2=firstNum;
+        secondNum2=secondNum;
+        
+        
+        
+        //part (b)        
+        while (firstNum<secondNum)
+        {
+     num1=firstNum%2;
+       if (num1==1)
+       {
+           System.out.println(firstNum);
+                   }    
+       firstNum++;
+        
+        
+    }
+
+        //part (c)
+        int sum=0;
+        while (firstNum1<=secondNum1)
+        {
+        num2=firstNum1%2;
+        
+        if (num2==0)
+        {
+            sum=sum+firstNum1;
+        //System.out.println("Sum of even numbers is: "+sum);
+        }
+        firstNum1++;
+        }
+        System.out.println("Sum of even numbers is: "+sum);
+        
+       // System.out.println("Enter a number between 1 and 10");
+        num4= 1 ;//console.nextInt();
+        
+        //part (d)
+        double product;
+        while (num4<=10)
+        {
+            
+        product=Math.pow(num4,2); 
+        System.out.println(product);
+        num4++;
+        }
+        
+        int sum2= 0;
+        //part (e)
+        while (firstNum2<=secondNum2)
+        {
+        num1=firstNum2%2;
+        if (num1==1)
+        {
+       
+        sum2 = sum2 + (firstNum2*firstNum2);
+        }
+        firstNum2++;
+        }
+         System.out.println("square sum:"+sum2);
+        
+        //part (f)
+        char letter;
+        int num5=65, num6=90;
+        
+       do
+        {
+        letter=(char)(num5);
+        System.out.println(letter);
+        num5++;
+        
+        }
+         while (num5<=num6);
+       
+    }
+}

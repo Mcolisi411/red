@@ -1,0 +1,300 @@
+Your MySQL connection id is 3
+Server version: 5.5.30 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2013, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++------------------------+
+| Database               |
++------------------------+
+| information_schema     |
+| assessment7            |
+| compony                |
+| dlamini                |
+| dlaminicompony         |
+| lab2                   |
+| lab3                   |
+| lab7                   |
+| lab_2                  |
+| mysql                  |
+| orderproccesingsystem  |
+| orderprocessingsystem  |
+| orderprocessingsystem1 |
+| p4                     |
+| performance_schema     |
+| pp4                    |
+| ppp4                   |
+| pra4                   |
+| practical4             |
+| pratical4              |
+| skill                  |
+| skill_1                |
+| spider                 |
+| spy                    |
+| test                   |
++------------------------+
+25 rows in set (0.16 sec)
+
+mysql> create database labAssessement7;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use labAssessement7;
+Database changed
+mysql> create table orders
+    -> (
+    -> ordersID integer (10) primary key not null,
+    -> dateOrdered datetime not null,
+    -> dateFulFilled datetime not null,
+    -> shipToContactID varchar (10) not null,
+    -> BillToContactID varchar (10) not null,
+    -> paymentType varchar (15)
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> describe orders;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| ordersID        | int(10)     | NO   | PRI | NULL    |       |
+| dateOrdered     | datetime    | NO   |     | NULL    |       |
+| dateFulFilled   | datetime    | NO   |     | NULL    |       |
+| shipToContactID | varchar(10) | NO   |     | NULL    |       |
+| BillToContactID | varchar(10) | NO   |     | NULL    |       |
+| paymentType     | varchar(15) | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+6 rows in set (0.02 sec)
+
+mysql> create table ordersItem
+    -> (
+    -> ordersID integer (10) not null,
+    -> itemSequence varchar (10) not null,
+    -> itemName varchar (10) not null,
+    -> itemPrice double not null,
+    -> numberOrdered integer (4) not null,
+    -> totalPrice double not null,
+    -> primary key(ordersID,itemSequence),
+    -> foreign key ordersitem(ordersID) references orders(ordersID)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> describe ordersItem;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| ordersID      | int(10)     | NO   | PRI | NULL    |       |
+| itemSequence  | varchar(10) | NO   | PRI | NULL    |       |
+| itemName      | varchar(10) | NO   |     | NULL    |       |
+| itemPrice     | double      | NO   |     | NULL    |       |
+| numberOrdered | int(4)      | NO   |     | NULL    |       |
+| totalPrice    | double      | NO   |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+6 rows in set (0.02 sec)
+
+mysql> create table ordersPayment
+    -> (
+    -> ordersID integer (10) not null,
+    -> paymentNumber integer (10) not null,
+    -> amount double not null,
+    -> paymentDescription text not null,
+    -> primary key(ordersID,paymentNumber),
+    -> foreign key ordersPayment(ordersID) references ordersItem(ordersID)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> describe ordersPayment;
++--------------------+---------+------+-----+---------+-------+
+| Field              | Type    | Null | Key | Default | Extra |
++--------------------+---------+------+-----+---------+-------+
+| ordersID           | int(10) | NO   | PRI | NULL    |       |
+| paymentNumber      | int(10) | NO   | PRI | NULL    |       |
+| amount             | double  | NO   |     | NULL    |       |
+| paymentDescription | text    | NO   |     | NULL    |       |
++--------------------+---------+------+-----+---------+-------+
+4 rows in set (0.05 sec)
+
+mysql> create table contactInformation
+    -> (
+    -> contactID varchar (15) primary key not null,
+    -> ordersID integer (10) not null,
+    -> Name varchar (15) not null,
+    -> street varchar (15) not null,
+    -> City varchar (15) not null,
+    -> State varchar (15) not null,
+    -> Country varchar (15) not null,
+    -> PostCode varchar (10) not null,
+    -> TelephoneNo integer (15) not null,
+    -> foreign key contactInformation(ordersID) references ordersPayment(ordersI
+D)
+    -> );
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> describe contactInformation;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| contactID   | varchar(15) | NO   | PRI | NULL    |       |
+| ordersID    | int(10)     | NO   | MUL | NULL    |       |
+| Name        | varchar(15) | NO   |     | NULL    |       |
+| street      | varchar(15) | NO   |     | NULL    |       |
+| City        | varchar(15) | NO   |     | NULL    |       |
+| State       | varchar(15) | NO   |     | NULL    |       |
+| Country     | varchar(15) | NO   |     | NULL    |       |
+| PostCode    | varchar(10) | NO   |     | NULL    |       |
+| TelephoneNo | int(15)     | NO   |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+9 rows in set (0.06 sec)
+
+mysql> insert into orders values('11', '2013-02-01 08:10:00', '2013-02-02 08:00:
+00', 'A40', 'B10', 'cash');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders values('22', '2013-04-01 09:30:00', '2013-04-09 10:00:
+00', 'A41', 'B11', 'cash');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into orders values('33', '2013-03-02 11:30:00', '2013-03-05 07:15:
+00', 'A42', 'B12', 'cash');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders values('44', '2013-06-09 07:30:00', '2013-06-12 09:00:
+00', 'A43', 'B13', 'cash');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into orders values('55', '2013-10-01 10:30:00', '2013-10-10 11:20:
+00', 'A44', 'B14', 'cash');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from orders;
++----------+---------------------+---------------------+-----------------+------
+-----------+-------------+
+| ordersID | dateOrdered         | dateFulFilled       | shipToContactID | BillT
+oContactID | paymentType |
++----------+---------------------+---------------------+-----------------+------
+-----------+-------------+
+|       11 | 2013-02-01 08:10:00 | 2013-02-02 08:00:00 | A40             | B10
+           | cash        |
+|       22 | 2013-04-01 09:30:00 | 2013-04-09 10:00:00 | A41             | B11
+           | cash        |
+|       33 | 2013-03-02 11:30:00 | 2013-03-05 07:15:00 | A42             | B12
+           | cash        |
+|       44 | 2013-06-09 07:30:00 | 2013-06-12 09:00:00 | A43             | B13
+           | cash        |
+|       55 | 2013-10-01 10:30:00 | 2013-10-10 11:20:00 | A44             | B14
+           | cash        |
++----------+---------------------+---------------------+-----------------+------
+-----------+-------------+
+5 rows in set (0.05 sec)
+
+mysql> insert into ordersItem values('11', 'medium', 'pen', '2.5', '50', '125.00
+');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into ordersItem values('22', 'small', 'pencil', '1.5', '40', '60.0
+0');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into ordersItem values('33', 'small', 'esraser', '2.00', '50', '10
+0.00');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into ordersItem values('44', 'lager', 'counter_book', '10.00', '20
+', '200.00');
+ERROR 1406 (22001): Data too long for column 'itemName' at row 1
+mysql> insert into ordersItem values('44', 'lager', 'book', '10.00', '20', '200.
+00');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into ordersItem values('55', 'medium', 'bag', '45.00', '2', '90.00
+');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from ordersItem;
++----------+--------------+----------+-----------+---------------+------------+
+| ordersID | itemSequence | itemName | itemPrice | numberOrdered | totalPrice |
++----------+--------------+----------+-----------+---------------+------------+
+|       11 | medium       | pen      |       2.5 |            50 |        125 |
+|       22 | small        | pencil   |       1.5 |            40 |         60 |
+|       33 | small        | esraser  |         2 |            50 |        100 |
+|       44 | lager        | book     |        10 |            20 |        200 |
+|       55 | medium       | bag      |        45 |             2 |         90 |
++----------+--------------+----------+-----------+---------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into ordersPayment values('11', '1', '20.5', 'paid');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into ordersPayment values('22', '2', '40.20', 'notPaid');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into ordersPayment values('33', '3', '50.00', 'notPaid');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into ordersPayment values('44', '4', '10.00', 'Paid');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into ordersPayment values('55', '5', '15.00', 'Paid');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from ordersPayment;
++----------+---------------+--------+--------------------+
+| ordersID | paymentNumber | amount | paymentDescription |
++----------+---------------+--------+--------------------+
+|       11 |             1 |   20.5 | paid               |
+|       22 |             2 |   40.2 | notPaid            |
+|       33 |             3 |     50 | notPaid            |
+|       44 |             4 |     10 | Paid               |
+|       55 |             5 |     15 | Paid               |
++----------+---------------+--------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into contactInformatiom values('A1', '11', 'Mike', 'Gwamile_str',
+'Mbabane', 'Hhohho', 'Swaziland', 'H100', '76324565');
+ERROR 1146 (42S02): Table 'labassessement7.contactinformatiom' doesn't exist
+mysql> insert into contactInformation values('A1', '11', 'Mike', 'Gwamile_str',
+'Mbabane', 'Hhohho', 'Swaziland', 'H100', '76324565');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into contactInformation values('A2', '22', 'Saun', 'long_str', 'Ma
+tsapha', 'Shiselweni', 'Swaziland', 'H110', '76786575');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into contactInformation values('A3', '33', 'Lucas', 'sobhuza_str',
+ 'GolfView', 'Lubombo', 'Swaziland', 'H400', '76124532');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into contactInformation values('A4', '44', 'David', 'Red_str', 'Ce
+ntralPark', 'Lubombo', 'Swaziland', 'H300', '76026532');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into contactInformation values('A5', '55', 'John', 'Weed_str', 'Ri
+verSide', 'Hhohho', 'Swaziland', 'H210', '76118734');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from contactInformation;
++-----------+----------+-------+-------------+-------------+------------+-------
+----+----------+-------------+
+| contactID | ordersID | Name  | street      | City        | State      | Countr
+y   | PostCode | TelephoneNo |
++-----------+----------+-------+-------------+-------------+------------+-------
+----+----------+-------------+
+| A1        |       11 | Mike  | Gwamile_str | Mbabane     | Hhohho     | Swazil
+and | H100     |    76324565 |
+| A2        |       22 | Saun  | long_str    | Matsapha    | Shiselweni | Swazil
+and | H110     |    76786575 |
+| A3        |       33 | Lucas | sobhuza_str | GolfView    | Lubombo    | Swazil
+and | H400     |    76124532 |
+| A4        |       44 | David | Red_str     | CentralPark | Lubombo    | Swazil
+and | H300     |    76026532 |
+| A5        |       55 | John  | Weed_str    | RiverSide   | Hhohho     | Swazil
+and | H210     |    76118734 |
++-----------+----------+-------+-------------+-------------+------------+-------
+----+----------+-------------+
+5 rows in set (0.00 sec)
+
+mysql>

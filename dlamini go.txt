@@ -1,0 +1,65 @@
+#include <iostream>  
+
+using namespace std;  
+
+int main()  
+ {  
+
+int first,second,third;      
+
+cout << "Enter first integer: ";  
+
+cin >> first;  
+
+cout << "Enter second integer: ";  
+
+cin >> second;  
+
+cout << "Enter third integer: ";  
+
+cin >> third;      
+
+if(first>second){  
+
+int temp = first;  
+
+first = second;  
+
+second = temp;  
+
+}  
+
+if(second>third){  
+
+int temp = second;  
+
+second = third;  
+
+third = temp;  
+
+}  
+    
+
+if(first>third){  
+
+int temp = first;  
+
+first = third;  
+
+third = temp;  
+
+}  
+if (first>second)
+{
+	int temp=first;
+	first=second;
+	second=temp;
+}
+  
+cout << "The number is ascending order:" << endl;;  
+
+cout << first << " , " << second << " , " << third << endl;  
+
+return 0;  
+
+} 

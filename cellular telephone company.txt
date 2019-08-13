@@ -1,0 +1,96 @@
+/*a program that calculates and prints the bill for a cellular telephone
+company*/
+
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+double const regular_service_charges = 10.00;
+const int regular_free_minutes = 50;
+const double regular_rate_over_50 = 0.20;
+
+const double premium_service_charges = 25.00;
+const int premium_free_day_minutes = 75;
+const double premium_day_rate_over_75 = 0.10;
+
+const int premium_free_night_minutes = 100;
+const double premium_night_rate_over_100 = 0.05;
+
+int main()
+{
+    int account_no;
+    char service_type;
+
+    int minutes_used;
+    int minutes_usedPN;
+
+    double amount_due;
+
+    cout << fixed << showpoint;
+    cout << setprecision(2);
+
+    cout << "Enter account number: ";
+    cin >> account_no;
+    cout << endl;
+
+    cout << "Enter service type: (r or R) for regular, " 
+         << "(p or P) for premium service: " << endl;
+    cin >> service_type;
+    cout << endl;
+
+    switch (service_type)
+    {
+	case 'r':
+    case 'R': 
+        cout << "Enter number of minutes service used: ";
+        cin >> minutes_used;
+        cout << endl;
+
+        if (minutes_used <=regular_free_minutes )
+            amount_due = regular_service_charges;
+        else
+            amount_due = regular_service_charges 
+                        + (minutes_used - regular_free_minutes) 
+                          * regular_rate_over_50;
+            cout << "Account Number: " << account_no << endl;
+            cout << "Serice Type: Regular" << endl;
+            cout << "Minutes Service Used: " << minutes_used << endl;
+            cout << "Amount Due: $" << amount_due << endl;
+            break;
+    case 'p':
+    case 'P': 
+        cout << "Enter day time minutes used: ";
+        cin >> minutes_used;
+        cout << endl;
+
+        cout << "Enter night time minutes used: ";
+        cin >> minutes_usedPN;
+        cout << endl;
+
+        amount_due = premium_service_charges;
+
+        if (minutes_used > premium_free_day_minutes)
+            amount_due = amount_due + 
+                        (minutes_used - premium_free_day_minutes) 
+                         *  premium_day_rate_over_75;
+
+        if (minutes_usedPN > premium_free_night_minutes )
+            amount_due = amount_due + 
+                        (minutes_usedPN - premium_free_night_minutes)
+                          * premium_night_rate_over_100;
+
+        cout << "Account Number: " << account_no << endl;
+        cout << "Serice Type: Premium" << endl;
+        cout << "Minutes Service Used (Day): " 
+             << minutes_used << endl;
+        cout << "Minutes Service Used (Night): " 
+             << minutes_usedPN << endl;
+        cout << "Amount Due: $" << amount_due << endl;
+        break;
+    default: 
+        cout << "Invalid Service Type" << endl;
+	}
+
+	return 0;
+}
