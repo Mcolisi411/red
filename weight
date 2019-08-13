@@ -1,0 +1,47 @@
+package javaprogram;
+import java.util.*;
+
+public class javaprogram
+{
+  static Scanner x = new scanner(System.in);
+  
+  public static void main(String[] args)
+ {
+  int num1, num2, age;
+  double sale, weight;
+  char first;
+  string str, firstname, secondname;
+  
+  num1 = 4
+  System.out.println("number1 =" + num1);
+  
+  num2 = 4 * 5 -11;
+  System.out.prntln("number2 =" + num2);
+  
+  sale = 0.02 * 100;
+  System.out.println("sale =" +sale);
+  
+  first = 'D';
+  System.out.println("first = " + first);
+  
+  str "John";
+  System.out.println("str =" +str);
+  System.ouy.prntln("number = " + (num1 + num2));
+  
+  System,out.println("Enter first name, second name, age and weight");
+  
+  firstname = x.next();
+  secondname = x.next();
+  age = x.nextInt();
+  weight = x.nextDouble();
+  
+  System.out,println("Name = " + firstname " " + secondname);
+  System.out.println("age = " +age);
+  System.out.println("weight = " +weight);
+  }
+}
+  
+  
+  
+
+  
